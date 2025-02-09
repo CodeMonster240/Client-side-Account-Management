@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            padding: 15px;
+            /* background: #1abc9c; */
+            background: linear-gradient(135deg, #71b7e6, #9b59b6);
+            overflow: hidden;
+        }
+
+        .wrapper {
+            max-width: 500px;
+            width: 100%;
+            background: #fff;
+            border-radius: 5px;
+            box-shadow: 0px 4px 10px 1px rgba(0, 0, 0, 0.1);
+        }
+
+        .wrapper .title {
+            height: 120px;
+            background: #16a085;
+            border-radius: 5px 5px 0 0;
+            color: #fff;
+            font-size: 30px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .wrapper form {
+            padding: 25px 35px;
+        }
+
+        .wrapper form .row {
+            height: 60px;
+            margin-top: 15px;
+            position: relative;
+        }
+
+        .wrapper form .row input {
+            height: 100%;
+            width: 100%;
+            outline: none;
+            padding-left: 70px;
+            border-radius: 5px;
+            border: 1px solid lightgrey;
+            font-size: 18px;
+            transition: all 0.3s ease;
+        }
+
+        form .row input:focus {
+            border-color: #16a085;
+        }
+
+        form .row input::placeholder {
+            color: #999;
+        }
+
+        .wrapper form .row i {
+            position: absolute;
+            width: 55px;
+            height: 100%;
+            color: #fff;
+            font-size: 22px;
+            background: #16a085;
+            border: 1px solid #16a085;
+            border-radius: 5px 0 0 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .wrapper form .pass {
+            margin-top: 12px;
+        }
+
+        .a {
+            color: #076d59;
+            font-size: 17px;
+            text-decoration: none;
+        }
+
+        .a:hover {
+            text-decoration: underline;
+        }
+
+        .wrapper form .pass a {
+            color: #16a085;
+            font-size: 17px;
+            text-decoration: none;
+        }
+
+        .wrapper form .pass a:hover {
+            text-decoration: underline;
+        }
+        .wrapper form .button input {
+            margin-top: 20px;
+            color: #fff;
+            font-size: 20px;
+            font-weight: 500;
+            padding-left: 0px;
+            background: #16a085;
+            border: 1px solid #16a085;
+            cursor: pointer;
+        }
+
+        form .button input:hover {
+            background: #12876f;
+        }
+
+        .wrapper form .signup-link {
+            text-align: center;
+            margin-top: 45px;
+            font-size: 17px;
+        }
+
+        .wrapper form .signup-link a {
+            color: #16a085;
+            text-decoration: none;
+        }
+
+        form .signup-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+    <!-- Font Awesome CDN link for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="title"><span>Login Form</span><br><br></div>
+        <p id="message"
+            style="margin-top: 20px; text-align: center; color: rgb(255, 255, 255); background-color: #1abc9c; border-radius: 20px; margin-left: 100px; margin-right: 100px; padding: 5px;">
+        </p>
+        <form action="dashboard.html" name="login" id="login">
+            <div class="row">
+                <i class="fas fa-user"></i>
+                <input type="text" placeholder="Email or Username" required id="email" />
+            </div>
+            <div class="row">
+                <i class="fas fa-lock"></i>
+                <input type="password" placeholder="Password" required id="password" />
+            </div>
+            <div class="pass"><a href="register.html">Forgot password? Create a new account!</a></div>
+            <div class="row button">
+                <input type="submit" value="Login" id="submitBtn" />
+            </div>
+            <div class="signup-link">Not a member? <a href="register.html">Sign Up</a></div>
+        </form>
+    </div>
+    <script>
+        var form = document.getElementById("login");
+        function handleForm(event) { event.preventDefault(); }
+        form.addEventListener('submit', handleForm);
+        document.getElementById('submitBtn').onclick = function () {
+            validate()
+        }
+        function validate() {
+            var realPassword = localStorage.getItem('password')
+            var password = document.getElementById('password').value;
+
+            var realUsername = localStorage.getItem('username')
+            var realEmail = localStorage.getItem('email')
+            var username = document.getElementById('email').value;
+
+            if (username == realEmail || username == realUsername) {
+                if (password == realPassword) {
+                    var id = makeid(87)
+                    localStorage.setItem('session-id', id)
+                    // document.login.action = `dashboard.html#session-id=${id}`
+                    window.location.href = `dashboard.html#session-id=${id}`
+                    localStorage.setItem('logged-in', 'true')
+                }
+                else {
+                    document.login.action = '#'
+                    document.getElementById('message').textContent = "Incorrect Username/Email or password. Please try again."
+                    document.getElementById('message').style.display = "block"
+                }
+            }
+            else {
+                // window.alert(realEmail)
+                // window.alert(realPassword)
+                document.getElementById('message').textContent = "Incorrect Username/Email or password. Please try again."
+                document.getElementById('message').style.display = "block"
+            }
+        }
+
+
+        function makeid(length) {
+            let result = '';
+            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            const charactersLength = characters.length;
+            let counter = 0;
+            while (counter < length) {
+                result += characters.charAt(Math.floor(Math.random() * charactersLength));
+                counter += 1;
+            }
+            return result;
+        }
+
+
+        window.onload = function () { ref() };
+        function ref() {
+            // parse query string
+            const id = new URLSearchParams((new URL(window.location)).hash.substring(1)).get("ref");
+            if (id == 'login') {
+                document.getElementById('message').textContent = "You have been logged out. Please log back in"
+                document.getElementById('message').style.display = "block"
+            }
+            else if (id == 'invalid') {
+                document.getElementById('message').textContent = "Please log in before going to the dashboard!"
+                document.getElementById('message').style.display = "block"
+            }
+            else if (id == 'account-deleted') {
+                document.getElementById('message').innerHTML = `<p>Your account has been deleted. Please <a href="register.html" class="a">Create a New Account.</a></p>`
+                document.getElementById('message').style.display = "block"
+            }
+            else {
+                document.getElementById('message').style.display = "none"
+            }
+        }
+    </script>
+</body>
+
+</html>

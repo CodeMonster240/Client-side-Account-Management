@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+            background: linear-gradient(135deg, #71b7e6, #9b59b6);
+        }
+
+        .container {
+            max-width: 700px;
+            width: 100%;
+            background-color: #fff;
+            padding: 25px 30px;
+            border-radius: 5px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        .container .title {
+            font-size: 25px;
+            font-weight: 500;
+            position: relative;
+        }
+
+        .container .title::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            height: 3px;
+            width: 30px;
+            border-radius: 5px;
+            background: linear-gradient(135deg, #71b7e6, #9b59b6);
+        }
+
+        .content form .user-details {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin: 20px 0 12px 0;
+        }
+
+        form .user-details .input-box {
+            margin-bottom: 15px;
+            width: calc(100% / 2 - 20px);
+        }
+
+        form .input-box span.details {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+
+        .user-details .input-box input:not([type=checkbox]) {
+            height: 45px;
+            width: 100%;
+            outline: none;
+            font-size: 16px;
+            border-radius: 5px;
+            padding-left: 15px;
+            border: 1px solid #ccc;
+            border-bottom-width: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .user-details .input-box .password {
+            height: 45px;
+            width: 100%;
+            outline: none;
+            font-size: 16px;
+            border-radius: 5px;
+            padding-left: 15px;
+            border-bottom-width: 2px;
+            transition: all 0.3s ease;
+            border: none;
+        }
+
+        .user-details .input-box .password-div {
+            height: 45px;
+            width: 100%;
+            outline: none;
+            font-size: 16px;
+            border-radius: 5px;
+            padding-right: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .user-details .input-box input:focus+ :not([type=checkbox]),
+        .user-details .input-box input:valid+ :not([type=checkbox]) {
+            border-color: #9b59b6;
+        }
+
+        form .gender-details .gender-title {
+            font-size: 20px;
+            font-weight: 500;
+        }
+
+        form .category {
+            display: flex;
+            width: 80%;
+            margin: 14px 0;
+            justify-content: space-between;
+        }
+
+        form .category label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        form .category label .dot {
+            height: 18px;
+            width: 18px;
+            border-radius: 50%;
+            margin-right: 10px;
+            background: #d9d9d9;
+            border: 5px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        #dot-1:checked~.category label .one,
+        #dot-2:checked~.category label .two,
+        #dot-3:checked~.category label .three {
+            background: #9b59b6;
+            border-color: #d9d9d9;
+        }
+
+        form input[type="radio"] {
+            display: none;
+        }
+
+        form .button {
+            height: 45px;
+            margin: 35px 0
+        }
+
+        form .button input {
+            height: 100%;
+            width: 100%;
+            border-radius: 5px;
+            border: none;
+            color: #fff;
+            font-size: 18px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: linear-gradient(135deg, #71b7e6, #9b59b6);
+        }
+
+        form .button input:hover {
+            transition-duration: 0.4s;
+            background: linear-gradient(-135deg, #71b7e6, #9b59b6);
+        }
+
+        /* Responsive media query code for mobile devices */
+        @media(max-width: 584px) {
+            .container {
+                max-width: 100%;
+            }
+
+            form .user-details .input-box {
+                margin-bottom: 15px;
+                width: 100%;
+            }
+
+            form .category {
+                width: 100%;
+            }
+
+            .content form .user-details {
+                max-height: 300px;
+                overflow-y: scroll;
+            }
+
+            .user-details::-webkit-scrollbar {
+                width: 5px;
+            }
+        }
+
+        /* Responsive media query code for mobile devices */
+        @media(max-width: 459px) {
+            .container .content .category {
+                flex-direction: column;
+            }
+        }
+
+        .signup-link {
+            text-align: center;
+            margin-top: 45px;
+            font-size: 17px;
+        }
+
+        .signup-link a {
+            color: #16a085;
+            text-decoration: none;
+        }
+
+        .signup-link a:hover {
+            text-decoration: underline;
+        }
+
+        .ui-checkbox {
+            --primary-color: #1677ff;
+            --secondary-color: #fff;
+            --primary-hover-color: #4096ff;
+            /* checkbox */
+            --checkbox-diameter: 20px;
+            --checkbox-border-radius: 5px;
+            --checkbox-border-color: #878787;
+            --checkbox-border-width: 1px;
+            --checkbox-border-style: solid;
+            /* checkmark */
+            --checkmark-size: 1.2;
+        }
+
+        .ui-checkbox,
+        .ui-checkbox *,
+        .ui-checkbox *::before,
+        .ui-checkbox *::after {
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+
+        .ui-checkbox {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            width: var(--checkbox-diameter);
+            height: var(--checkbox-diameter);
+            border-radius: var(--checkbox-border-radius);
+            background: var(--secondary-color);
+            border: var(--checkbox-border-width) var(--checkbox-border-style) var(--checkbox-border-color);
+            -webkit-transition: all 0.3s;
+            -o-transition: all 0.3s;
+            transition: all 0.3s;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .ui-checkbox::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            -webkit-box-shadow: 0 0 0 calc(var(--checkbox-diameter) / 2.5) var(--primary-color);
+            box-shadow: 0 0 0 calc(var(--checkbox-diameter) / 2.5) var(--primary-color);
+            border-radius: inherit;
+            opacity: 0;
+            -webkit-transition: all 0.5s cubic-bezier(0.12, 0.4, 0.29, 1.46);
+            -o-transition: all 0.5s cubic-bezier(0.12, 0.4, 0.29, 1.46);
+            transition: all 0.5s cubic-bezier(0.12, 0.4, 0.29, 1.46);
+        }
+
+        .ui-checkbox::before {
+            top: 40%;
+            left: 50%;
+            content: "";
+            position: absolute;
+            width: 4px;
+            height: 7px;
+            border-right: 2px solid var(--secondary-color);
+            border-bottom: 2px solid var(--secondary-color);
+            -webkit-transform: translate(-50%, -50%) rotate(45deg) scale(0);
+            -ms-transform: translate(-50%, -50%) rotate(45deg) scale(0);
+            transform: translate(-50%, -50%) rotate(45deg) scale(0);
+            opacity: 0;
+            -webkit-transition: all 0.1s cubic-bezier(0.71, -0.46, 0.88, 0.6), opacity 0.1s;
+            -o-transition: all 0.1s cubic-bezier(0.71, -0.46, 0.88, 0.6), opacity 0.1s;
+            transition: all 0.1s cubic-bezier(0.71, -0.46, 0.88, 0.6), opacity 0.1s;
+        }
+
+        /* actions */
+
+        .ui-checkbox:hover {
+            border-color: var(--primary-color);
+        }
+
+        .ui-checkbox:checked {
+            background: var(--primary-color);
+            border-color: transparent;
+        }
+
+        .ui-checkbox:checked::before {
+            opacity: 1;
+            -webkit-transform: translate(-50%, -50%) rotate(45deg) scale(var(--checkmark-size));
+            -ms-transform: translate(-50%, -50%) rotate(45deg) scale(var(--checkmark-size));
+            transform: translate(-50%, -50%) rotate(45deg) scale(var(--checkmark-size));
+            -webkit-transition: all 0.2s cubic-bezier(0.12, 0.4, 0.29, 1.46) 0.1s;
+            -o-transition: all 0.2s cubic-bezier(0.12, 0.4, 0.29, 1.46) 0.1s;
+            transition: all 0.2s cubic-bezier(0.12, 0.4, 0.29, 1.46) 0.1s;
+        }
+
+        .ui-checkbox:active:not(:checked)::after {
+            -webkit-transition: none;
+            -o-transition: none;
+            -webkit-box-shadow: none;
+            box-shadow: none;
+            transition: none;
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Title section -->
+        <div class="title">Registration</div>
+        <div class="content">
+            <!-- Registration form -->
+            <form id="registrationForm" name="registration" onsubmit="return validate()" action="register.html#account_status=created">
+                <div class="user-details">
+                    <!-- Input for Full Name -->
+                    <div class="input-box">
+                        <span class="details">Full Name</span>
+                        <input type="text" placeholder="Enter your name" required id="name">
+                    </div>
+                    <!-- Input for Username -->
+                    <div class="input-box">
+                        <span class="details">Username</span>
+                        <input type="text" placeholder="Enter your username" required id="username">
+                    </div>
+                    <!-- Input for Email -->
+                    <div class="input-box">
+                        <span class="details">Email</span>
+                        <input type="text" placeholder="Enter your email" required id="email">
+                    </div>
+                    <!-- Input for Phone Number -->
+                    <div class="input-box">
+                        <span class="details">Phone Number (Optional)</span>
+                        <input type="number" placeholder="Enter your number" id="phone">
+                    </div>
+                    <!-- Input for Password -->
+                    <div class="input-box">
+                        <span class="details">Password</span>
+                        <input type="password" placeholder="Enter your password" required id="password">
+                        <div style="display: flex; align-items: center;">
+                            <input type="checkbox" class="ui-checkbox"
+                                style="width: 20px; height: 20px; margin-top: 10px; float: left;"
+                                onclick="showPassword()">
+                            <p style="padding: 10px; margin-top: 10px">Show Password</p>
+                        </div>
+                    </div>
+                    <!-- Input for Confirm Password -->
+                    <div class="input-box">
+                        <span class="details">Confirm Password</span>
+                        <input type="password" placeholder="Confirm your password" required id="confirm">
+                    </div>
+                </div>
+                <p id="errorElement" style="text-align: center;"></p>
+                <div class="gender-details">
+                    <!-- Radio buttons for gender selection -->
+                    <input type="radio" name="gender" id="dot-1" required>
+                    <input type="radio" name="gender" id="dot-2" required>
+                    <input type="radio" name="gender" id="dot-3" required>
+                    <span class="gender-title">Gender</span>
+                    <div class="category">
+                        <!-- Label for Male -->
+                        <label for="dot-1">
+                            <span class="dot one"></span>
+                            <span class="gender">Male</span>
+                        </label>
+                        <!-- Label for Female -->
+                        <label for="dot-2">
+                            <span class="dot two"></span>
+                            <span class="gender">Female</span>
+                        </label>
+                        <!-- Label for Prefer not to say -->
+                        <label for="dot-3">
+                            <span class="dot three"></span>
+                            <span class="gender">Prefer not to say</span>
+                        </label>
+                    </div>
+                </div>
+                <!-- Submit button -->
+                <div class="button">
+                    <input type="submit" value="Register" id="submitBtn">
+                </div>
+            </form>
+            <div class="signup-link">Already a member? <a href="login.html">Sign In</a></div>
+        </div>
+    </div>
+    <script>
+        // document.getElementById('submitBtn').onclick = function () {
+        //     validate()
+        // }
+        function validate() {
+            var password = document.getElementById('password').value
+            var confirm = document.getElementById('confirm').value
+            var username = document.getElementById('username').value
+            var phone = document.getElementById('phone').value
+            var email = document.getElementById('email').value
+            var name = document.getElementById('name').value
+
+
+            if (password !== confirm) {
+                errorElement.style.display = "block";
+                errorElement.textContent = 'Passwords do not match!';
+                document.getElementById('password').style.border = "3px solid red";
+                document.getElementById('confirm').style.border = "3px solid red";
+                document.getElementById('registrationForm').addEventListener('input', function () {
+                    validate();
+                });
+
+            }
+            else if (password == confirm) {
+                errorElement.style.display = "none"
+                document.getElementById('password').style.border = "1px solid #9b59b6";
+                document.getElementById('password').style.borderBottomWidth = "2px";
+                document.getElementById('confirm').style.border = "1px solid #9b59b6";
+                document.getElementById('confirm').style.borderBottomWidth = "2px";
+                localStorage.setItem('password', password);
+                localStorage.setItem('email', email);
+                localStorage.setItem('username', username);
+                localStorage.setItem('phone', phone);
+                localStorage.setItem('name', name);
+                document.querySelector(".button").
+                errorElement.style.display = "none";
+                    onclick = function () {
+                        document.getElementById('submitBtn').value = "Account Created Successfully!";
+                        document.getElementById('submitBtn').style.backgroundColor = "green";
+                    }
+            }
+            return false;
+        }
+
+        window.onload = function () { ref() };
+        function ref() {
+            // parse query string
+            const id = new URLSearchParams((new URL(window.location)).hash.substring(1)).get("account_status");
+            if (id == 'created') {
+                document.getElementById('submitBtn').value = "Account Created Successfully!";
+                        document.getElementById('submitBtn').style.backgroundColor = "green";
+            }
+        }
+
+
+        function showPassword() {
+            var password = document.getElementById('password');
+            var confirm = document.getElementById('confirm')
+            if (password.type === "password") {
+                password.type = "text";
+                confirm.type = "text";
+            }
+            else {
+                password.type = "password";
+                confirm.type = "password";
+            }
+        }
+    </script>
+</body>
+
+</html>
